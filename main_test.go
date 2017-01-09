@@ -5,55 +5,25 @@ import (
 	"testing"
 
 	"github.com/mukulrawat1986/GoActors"
+
 	"github.com/stretchr/testify/assert"
 )
 
-func setup() {
-	main.ActorNames = []string{}
-}
+func Test_E2E(t *testing.T) {
 
-func Test_AskForName(t *testing.T) {
 	setup()
 
 	a := assert.New(t)
-	b := []byte("Brad\n")
+	b := []byte("Brad Pitt\nJennifer Aniston\nn\n")
 
 	r := bytes.NewBuffer(b)
+	w := &bytes.Buffer{}
 
-	main.AskForName(r)
+	main.Run(r, w)
 
-	a.Equal(len(main.ActorNames), 1)
-	a.Equal(main.ActorNames[0], "Brad")
-}
+	res := w.String()
 
-func Test_AskForNames(t *testing.T) {
-	setup()
-
-	a := assert.New(t)
-	b := []byte("Brad\nPitt\nn\n")
-
-	r := bytes.NewBuffer(b)
-
-	main.AskForNames(r)
-
-	a.Equal(len(main.ActorNames), 2)
-	a.Equal(main.ActorNames[0], "Brad")
-	a.Equal(main.ActorNames[1], "Pitt")
-}
-
-func Test_AskForNames_FourNames(t *testing.T) {
-	setup()
-
-	a := assert.New(t)
-	b := []byte("Brad\nPitt\ny\nJennifer\ny\nLopez\nn\n")
-
-	r := bytes.NewBuffer(b)
-
-	main.AskForNames(r)
-
-	a.Equal(len(main.ActorNames), 4)
-	a.Equal(main.ActorNames[0], "Brad")
-	a.Equal(main.ActorNames[1], "Pitt")
-	a.Equal(main.ActorNames[2], "Jennifer")
-	a.Equal(main.ActorNames[3], "Lopez")
+	a.Contains(res, "You selected the following 2 actors")
+	a.Contains(res, "Brad Pitt")
+	a.Contains(res, "Jennifer Aniston")
 }
