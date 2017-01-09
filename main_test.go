@@ -25,3 +25,18 @@ func Test_AskForName(t *testing.T) {
 	a.Equal(len(main.ActorNames), 1)
 	a.Equal(main.ActorNames[0], "Brad")
 }
+
+func Test_AskForNames(t *testing.T) {
+	setup()
+
+	a := assert.New(t)
+	b := []byte("Brad\nPitt\n")
+
+	r := bytes.NewBuffer(b)
+
+	main.AskForNames(r)
+
+	a.Equal(len(main.ActorNames), 2)
+	a.Equal(main.ActorNames[0], "Brad")
+	a.Equal(main.ActorNames[1], "Pitt")
+}
