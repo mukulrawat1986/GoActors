@@ -20,6 +20,22 @@ func AskForName(r stringReader) {
 	ActorNames = append(ActorNames, name)
 }
 
+func AskForNames(r stringReader) {
+	asking := true
+	for asking {
+		if len(ActorNames) < 2 {
+			AskForName(r)
+		} else {
+			asking = false
+		}
+	}
+}
+
 func main() {
-	AskForName(bufio.NewReader(os.Stdin))
+	AskForNames(bufio.NewReader(os.Stdin))
+
+	fmt.Printf("You selected the following %d actors:\n", len(ActorNames))
+	for _, v := range ActorNames {
+		fmt.Println(v)
+	}
 }
