@@ -30,7 +30,7 @@ func Test_AskForNames(t *testing.T) {
 	setup()
 
 	a := assert.New(t)
-	b := []byte("Brad\nPitt\n")
+	b := []byte("Brad\nPitt\nn\n")
 
 	r := bytes.NewBuffer(b)
 
@@ -45,7 +45,7 @@ func Test_AskForNames_FourNames(t *testing.T) {
 	setup()
 
 	a := assert.New(t)
-	b := []byte("Brad\nPitt\nJennifer\nLopez\n")
+	b := []byte("Brad\nPitt\ny\nJennifer\ny\nLopez\nn\n")
 
 	r := bytes.NewBuffer(b)
 
