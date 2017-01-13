@@ -5,21 +5,17 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"os"
 )
 
 var ApiRoot = "https://api.themoviedb.org/3"
 var ApiKey = ""
-
-func init() {
-	ApiKey = os.Getenv("TMDB_KEY")
-}
 
 type Actor struct {
 	Popularity  float64 `json:"popularity"`
 	Name        string  `json:"name"`
 	ID          int     `json:"id"`
 	ProfilePath string  `json:"profile_path"`
+	Credits     []Credit
 }
 
 type ActorSearchResults struct {
@@ -47,5 +43,7 @@ func FetchActor(name string) (Actor, error) {
 	if results.TotalResults == 0 {
 		return a, fmt.Errorf("There are no search results for: %s!", name)
 	}
-	return results.Results[0], nil
+	a = results.Results[0]
+	err = FetchCredits(&a)
+	return a, nil
 }
