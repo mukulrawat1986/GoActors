@@ -26,4 +26,6 @@ func Test_E2E(t *testing.T) {
 	a.Contains(res, "You selected the following 2 actors")
 	a.Contains(res, "Brad Pitt")
 	a.Contains(res, "Jennifer Aniston")
+
+	a.Contains(res, "Friends")
 }
